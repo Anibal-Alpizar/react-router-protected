@@ -23,13 +23,15 @@ function App() {
       <Routes>
         <Route index element={<Landing />} />
         <Route path='/landing' element={<Landing />} />
-        <Route path='/home' element={
-          <ProtectedRoute user={user} >
-            <Home />
+        <Route element={<ProtectedRoute user={user} />}>
+          <Route path='/home' element={<Home />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+        </Route>
+        <Route path='/analytics' element={
+          <ProtectedRoute user={user}>
+            <Analytics />
           </ProtectedRoute>
         } />
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/analytics' eleFment={<Analytics />} />
         <Route path='/admin' element={<Admin />} />
       </Routes>
     </BrowserRouter>
@@ -48,7 +50,9 @@ function Navigation() {
       <li>
         <Link to="/dashboard">Dashboard</Link>
       </li>
-      <Link to="/analytics">Analytics</Link>
+      <li>
+        <Link to="/analytics">Analytics</Link>
+      </li>
       <li>
         <Link to="/admin">Admin</Link>
       </li>
