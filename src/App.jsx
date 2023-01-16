@@ -1,6 +1,7 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import { Admin, Analytics, Dashboard, Home, Landing } from './pages'
+import { ProtectedRoute } from './components/ProtectedRoute'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -22,9 +23,13 @@ function App() {
       <Routes>
         <Route index element={<Landing />} />
         <Route path='/landing' element={<Landing />} />
-        <Route path='/home' element={<Home />} />
+        <Route path='/home' element={
+          <ProtectedRoute user={user} >
+            <Home />
+          </ProtectedRoute>
+        } />
         <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/analytics' element={<Analytics />} />
+        <Route path='/analytics' eleFment={<Analytics />} />
         <Route path='/admin' element={<Admin />} />
       </Routes>
     </BrowserRouter>

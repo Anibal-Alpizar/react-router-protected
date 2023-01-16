@@ -1,6 +1,10 @@
+import { Navigate } from 'react-router-dom'
+
 export const Landing = () => <h2>Landing Page (Public)</h2>
 
-export const Home = () => <h2>Home Page (Private)</h2>
+export const Home = () => {
+    return <h2>Home Page (Private)</h2>
+}
 
 export const Dashboard = () => <h2>Dashboard Page (Private)</h2>
 
