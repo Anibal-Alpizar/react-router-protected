@@ -9,7 +9,9 @@ function App() {
     //request done
     setUser({
       id: 1,
-      name: 'Joe'
+      name: 'Joe',
+      permissions: ['analize'],
+      roles: ['admin']
     })
   }
   const logout = () => setUser(null)
@@ -23,16 +25,23 @@ function App() {
       <Routes>
         <Route index element={<Landing />} />
         <Route path='/landing' element={<Landing />} />
-        <Route element={<ProtectedRoute user={user} />}>
+        <Route element={<ProtectedRoute isAllowed={user ? true : false} />}>
           <Route path='/home' element={<Home />} />
           <Route path='/dashboard' element={<Dashboard />} />
         </Route>
         <Route path='/analytics' element={
-          <ProtectedRoute user={user}>
+          <ProtectedRoute
+            isAllowed={!!user && user.permissions.includes('analize')}
+            redirectTo="/home">
             <Analytics />
           </ProtectedRoute>
         } />
-        <Route path='/admin' element={<Admin />} />
+        <Route path='/admin' element={
+          <ProtectedRoute
+            isAllowed={!!user && user.roles.includes('admin')}
+            redirectTo="/home">
+            <Admin />
+          </ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   )
